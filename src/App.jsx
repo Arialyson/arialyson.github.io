@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import {
   Terminal,
-  Github,
-  Linkedin,
   Mail,
   ExternalLink,
   Download,
@@ -21,9 +19,28 @@ import {
 } from 'lucide-react';
 
 /**
+ * ÍCONES SVG NATIVOS PARA REDES SOCIAIS
+ * Evita falhas de build nas versões mais recentes do lucide-react que removeram ícones de marcas.
+ */
+const GithubIcon = ({ className = 'w-5 h-5' }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+    />
+  </svg>
+);
+
+const LinkedinIcon = ({ className = 'w-5 h-5' }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+  </svg>
+);
+
+/**
  * LISTA DE PROJETOS DO PORTFÓLIO
- * Cada objeto representa um card na seção de projetos.
- * 'featured: true' destaca o projeto principal (Kaiowá) em largura total no desktop.
+ * 'featured: true' exibe o card principal (Kaiowá) em destaque.
  */
 const PROJECTS = [
   {
@@ -95,7 +112,7 @@ const PROJECTS = [
 ];
 
 /**
- * HABILIDADES TÉCNICAS DIVIDIDAS POR PILAR
+ * COMPETÊNCIAS TÉCNICAS ORGANIZADAS POR ÁREA
  */
 const STACK_GROUPS = [
   {
@@ -121,28 +138,25 @@ const STACK_GROUPS = [
 ];
 
 export default function App() {
-  // Estado que controla o filtro ativo na seção de projetos ('all' | 'fullstack' | 'infra')
+  // Controla o filtro de categoria dos projetos ('all' | 'fullstack' | 'infra')
   const [activeFilter, setActiveFilter] = useState('all');
 
-  // Filtra os projetos com base na aba selecionada
   const filteredProjects = PROJECTS.filter((project) => {
     if (activeFilter === 'all') return true;
     return project.category === activeFilter;
   });
 
-  // Separa o projeto principal em destaque (Kaiowá) dos demais cards
   const featuredProject = filteredProjects.find((p) => p.featured);
   const regularProjects = filteredProjects.filter((p) => !p.featured);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 selection:bg-emerald-500/30 selection:text-emerald-300">
       {/* =====================================================================
-          1. BARRA DE NAVEGAÇÃO FIXA (DESKTOP + MENU RÁPIDO MOBILE)
+          1. BARRA DE NAVEGAÇÃO (DESKTOP INALTERADO + MENU RÁPIDO SÓ NO CELULAR)
       ===================================================================== */}
       <nav className="sticky top-0 z-50 backdrop-blur-md bg-slate-950/90 border-b border-slate-800/80">
-        {/* Linha principal do cabeçalho */}
         <div className="max-w-6xl mx-auto px-5 sm:px-6 h-16 flex items-center justify-between">
-          {/* Logotipo */}
+          {/* Logo */}
           <a href="#" className="flex items-center gap-2.5 group">
             <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500/20 transition">
               <Terminal className="w-4 h-4" />
@@ -152,7 +166,7 @@ export default function App() {
             </span>
           </a>
 
-          {/* Links de navegação para telas médias/grandes (Desktop/Tablet) */}
+          {/* Links horizontais no computador (md:flex) */}
           <div className="hidden md:flex items-center gap-7 text-sm font-medium text-slate-400">
             <a href="#perfil" className="hover:text-emerald-400 transition">Perfil</a>
             <a href="#projetos" className="hover:text-emerald-400 transition">Projetos</a>
@@ -161,7 +175,7 @@ export default function App() {
             <a href="#contato" className="hover:text-emerald-400 transition">Contato</a>
           </div>
 
-          {/* Ícones sociais à direita */}
+          {/* Ícones sociais */}
           <div className="flex items-center gap-3">
             <a
               href="https://github.com/Arialyson"
@@ -170,7 +184,7 @@ export default function App() {
               aria-label="GitHub"
               className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/70 transition"
             >
-              <Github className="w-5 h-5" />
+              <GithubIcon className="w-5 h-5" />
             </a>
             <a
               href="https://www.linkedin.com/in/arialyson-lima"
@@ -179,12 +193,12 @@ export default function App() {
               aria-label="LinkedIn"
               className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/70 transition"
             >
-              <Linkedin className="w-5 h-5" />
+              <LinkedinIcon className="w-5 h-5" />
             </a>
           </div>
         </div>
 
-        {/* Barra de acesso rápido exclusiva para smartphones (< 768px) */}
+        {/* Menu rápido visível APENAS em celulares (md:hidden) */}
         <div className="flex md:hidden items-center justify-between px-5 py-2.5 border-t border-slate-800/80 bg-slate-950/95 text-xs font-medium text-slate-400 overflow-x-auto gap-4">
           <a href="#perfil" className="hover:text-emerald-400 whitespace-nowrap">Perfil</a>
           <a href="#projetos" className="hover:text-emerald-400 whitespace-nowrap">Projetos</a>
@@ -195,19 +209,19 @@ export default function App() {
       </nav>
 
       {/* =====================================================================
-          2. HERO SECTION (CAPA RESPONSIVA: FOTO NO TOPO NO CELULAR)
+          2. HERO SECTION (DESKTOP IDÊNTICO • MOBILE COM FOTO NO TOPO E GRADE SIMÉTRICA)
       ===================================================================== */}
       <header className="relative overflow-hidden border-b border-slate-800/70">
-        {/* Grade decorativa sutil no fundo */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-25 pointer-events-none" />
 
         <div className="relative max-w-6xl mx-auto px-5 sm:px-6 pt-10 pb-14 sm:py-20 lg:py-24">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
-            {/* COLUNA DA FOTO: 'order-first' faz ela aparecer no topo no celular; 'lg:order-last' mantém à direita no desktop */}
+            {/* COLUNA DA FOTO:
+                - Celular: aparece primeiro (order-first), centralizada, tamanho w-44 h-44
+                - Computador (lg:): volta para a direita (lg:order-last), tamanho lg:w-80 lg:h-80 */}
             <div className="order-first lg:order-last lg:col-span-5 flex justify-center lg:justify-end">
               <div className="relative">
-                {/* Moldura quadrada arredondada com tamanho proporcional para mobile e desktop */}
                 <div className="w-44 h-44 sm:w-64 sm:h-64 lg:w-80 lg:h-80 rounded-2xl overflow-hidden border-2 border-slate-800 bg-slate-900 shadow-2xl shadow-emerald-950/20">
                   <img
                     src="/images/perfil.jpg"
@@ -216,7 +230,7 @@ export default function App() {
                   />
                 </div>
 
-                {/* Crachá flutuante centralizado no celular e deslocado à esquerda no desktop */}
+                {/* Crachá: centralizado no celular; deslocado à esquerda (lg:-left-5) no desktop */}
                 <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:-left-5 bg-slate-900/95 backdrop-blur border border-slate-700 px-3.5 py-1.5 rounded-xl shadow-lg whitespace-nowrap">
                   <p className="text-xs font-semibold text-white">Full-Stack & Redes</p>
                   <p className="text-[11px] font-mono text-emerald-400 flex items-center gap-1">
@@ -226,15 +240,15 @@ export default function App() {
               </div>
             </div>
 
-            {/* COLUNA DE APRESENTAÇÃO E BOTÕES DE AÇÃO */}
+            {/* COLUNA DE TEXTO:
+                - Celular: centralizado (text-center) e botões em grade simétrica (grid-cols-2)
+                - Computador (lg:): alinhado à esquerda (lg:text-left) e botões em linha (sm:flex) */}
             <div className="lg:col-span-7 text-center lg:text-left">
-              {/* Badge de disponibilidade */}
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px] sm:text-xs font-mono mb-5">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
                 <span>DISPONÍVEL • ESTÁGIO / JÚNIOR (DEV • INFRA)</span>
               </div>
 
-              {/* Nome e Título */}
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-3">
                 Arialyson Lima
               </h1>
@@ -242,7 +256,6 @@ export default function App() {
                 Desenvolvedor Full-Stack & Profissional de Infraestrutura de TI
               </h2>
 
-              {/* Resumo profissional */}
               <p className="text-sm sm:text-base text-slate-400 leading-relaxed mb-7 max-w-2xl mx-auto lg:mx-0">
                 Unindo <strong className="text-white">+11 anos de experiência industrial</strong> em
                 monitoramento de KPIs e troubleshooting crítico ao desenvolvimento de aplicações web
@@ -250,7 +263,7 @@ export default function App() {
                 e administração de redes e servidores Linux.
               </p>
 
-              {/* Grade de botões: 2 colunas simétricas no celular (botão principal ocupa a largura toda) e em linha no desktop */}
+              {/* Botões: grade simétrica de 2 colunas no celular e linha horizontal no computador */}
               <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3">
                 <a
                   href="#projetos"
@@ -275,7 +288,7 @@ export default function App() {
                   rel="noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white font-medium text-xs sm:text-sm transition"
                 >
-                  <Github className="w-4 h-4 shrink-0" />
+                  <GithubIcon className="w-4 h-4 shrink-0" />
                   GitHub
                 </a>
               </div>
@@ -299,7 +312,6 @@ export default function App() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {/* Card 1 */}
           <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition">
             <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-4">
               <Code2 className="w-5 h-5" />
@@ -311,7 +323,6 @@ export default function App() {
             </p>
           </div>
 
-          {/* Card 2 */}
           <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition">
             <div className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 mb-4">
               <Network className="w-5 h-5" />
@@ -323,7 +334,6 @@ export default function App() {
             </p>
           </div>
 
-          {/* Card 3 */}
           <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition">
             <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-4">
               <Cpu className="w-5 h-5" />
@@ -341,7 +351,6 @@ export default function App() {
           4. SEÇÃO DE PROJETOS (COM FILTROS INTERATIVOS)
       ===================================================================== */}
       <section id="projetos" className="max-w-6xl mx-auto px-5 sm:px-6 py-16 sm:py-20 border-b border-slate-800/70">
-        {/* Cabeçalho e botões de filtro */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 mb-10">
           <div>
             <span className="text-xs font-mono uppercase tracking-wider text-emerald-400">
@@ -352,7 +361,6 @@ export default function App() {
             </h2>
           </div>
 
-          {/* Botões de filtro por categoria */}
           <div className="flex flex-wrap gap-2">
             {[
               { id: 'all', label: 'Todos (5)' },
@@ -378,7 +386,6 @@ export default function App() {
         {featuredProject && (
           <div className="mb-8 rounded-2xl bg-slate-900/70 border border-slate-800 overflow-hidden hover:border-emerald-500/40 transition">
             <div className="grid grid-cols-1 lg:grid-cols-12">
-              {/* Informações do Projeto */}
               <div className="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between">
                 <div>
                   <div className="flex flex-wrap items-center gap-2 mb-3">
@@ -398,7 +405,6 @@ export default function App() {
                     {featuredProject.description}
                   </p>
 
-                  {/* Bloco de Arquitetura */}
                   <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800/90 mb-5">
                     <p className="text-xs font-mono text-slate-300">
                       <span className="text-emerald-400 font-semibold">Arquitetura:</span>{' '}
@@ -406,7 +412,6 @@ export default function App() {
                     </p>
                   </div>
 
-                  {/* Tags de Tecnologias */}
                   <div className="flex flex-wrap gap-1.5 mb-6">
                     {featuredProject.tags.map((tag) => (
                       <span
@@ -419,7 +424,6 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Botões de Ação */}
                 <div className="flex flex-wrap gap-3">
                   <a
                     href={featuredProject.liveUrl}
@@ -436,13 +440,12 @@ export default function App() {
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-medium text-xs sm:text-sm transition"
                   >
-                    <Github className="w-4 h-4" />
+                    <GithubIcon className="w-4 h-4" />
                     Repositório GitHub
                   </a>
                 </div>
               </div>
 
-              {/* Imagem de Pré-visualização */}
               <div className="lg:col-span-5 bg-slate-950 border-t lg:border-t-0 lg:border-l border-slate-800 p-4 sm:p-6 flex items-center justify-center">
                 <img
                   src={featuredProject.image}
@@ -454,7 +457,7 @@ export default function App() {
           </div>
         )}
 
-        {/* GRADE DOS DEMAIS PROJETOS (2 COLUNAS NO DESKTOP, 1 NO CELULAR) */}
+        {/* GRADE DOS DEMAIS PROJETOS */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {regularProjects.map((project) => (
             <article
@@ -462,7 +465,6 @@ export default function App() {
               className="rounded-2xl bg-slate-900/60 border border-slate-800 overflow-hidden flex flex-col justify-between hover:border-slate-700 transition group"
             >
               <div>
-                {/* Imagem de capa do card */}
                 <div className="h-48 sm:h-52 bg-slate-950 border-b border-slate-800 overflow-hidden">
                   <img
                     src={project.image}
@@ -471,7 +473,6 @@ export default function App() {
                   />
                 </div>
 
-                {/* Conteúdo textual */}
                 <div className="p-6">
                   <span className="text-[11px] font-mono uppercase tracking-wider text-emerald-400">
                     {project.category === 'infra' ? 'Redes & Infraestrutura' : 'Full-Stack & Dados'}
@@ -482,7 +483,6 @@ export default function App() {
                     {project.description}
                   </p>
 
-                  {/* Tags */}
                   <div className="flex flex-wrap gap-1.5">
                     {project.tags.map((tag) => (
                       <span
@@ -496,7 +496,6 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Rodapé do Card com Links */}
               <div className="px-6 pb-6 pt-2 flex flex-wrap items-center gap-4">
                 <a
                   href={project.repoUrl}
@@ -504,7 +503,7 @@ export default function App() {
                   rel="noreferrer"
                   className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-300 hover:text-emerald-400 transition"
                 >
-                  <Github className="w-4 h-4" />
+                  <GithubIcon className="w-4 h-4" />
                   {project.primaryRepoLabel || 'Ver no GitHub'}
                 </a>
 
@@ -584,7 +583,6 @@ export default function App() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Coluna Formação */}
           <div className="space-y-5">
             <div className="flex items-center gap-2 text-white font-semibold mb-2">
               <GraduationCap className="w-5 h-5 text-emerald-400" />
@@ -608,7 +606,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* Coluna Experiência */}
           <div className="space-y-5">
             <div className="flex items-center gap-2 text-white font-semibold mb-2">
               <Briefcase className="w-5 h-5 text-emerald-400" />
@@ -660,7 +657,7 @@ export default function App() {
               rel="noreferrer"
               className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-medium text-sm transition"
             >
-              <Linkedin className="w-4 h-4" />
+              <LinkedinIcon className="w-4 h-4" />
               LinkedIn
             </a>
             <a
@@ -669,7 +666,7 @@ export default function App() {
               rel="noreferrer"
               className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-medium text-sm transition"
             >
-              <Github className="w-4 h-4" />
+              <GithubIcon className="w-4 h-4" />
               GitHub
             </a>
           </div>
