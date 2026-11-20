@@ -300,8 +300,9 @@ export default function App() {
 
       {/* =====================================================================
           3. SEÇÃO PERFIL & DIFERENCIAL (BENTO GRID)
+          scroll-mt-28 garante que o menu fixo no celular não cubra o título ao navegar
       ===================================================================== */}
-      <section id="perfil" className="max-w-6xl mx-auto px-5 sm:px-6 py-16 sm:py-20 border-b border-slate-800/70">
+      <section id="perfil" className="scroll-mt-28 md:scroll-mt-20 max-w-6xl mx-auto px-5 sm:px-6 py-16 sm:py-20 border-b border-slate-800/70">
         <div className="mb-10">
           <span className="text-xs font-mono uppercase tracking-wider text-emerald-400">
             01. Proposta de Valor
@@ -350,7 +351,7 @@ export default function App() {
       {/* =====================================================================
           4. SEÇÃO DE PROJETOS (COM FILTROS INTERATIVOS)
       ===================================================================== */}
-      <section id="projetos" className="max-w-6xl mx-auto px-5 sm:px-6 py-16 sm:py-20 border-b border-slate-800/70">
+      <section id="projetos" className="scroll-mt-28 md:scroll-mt-20 max-w-6xl mx-auto px-5 sm:px-6 py-16 sm:py-20 border-b border-slate-800/70">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 mb-10">
           <div>
             <span className="text-xs font-mono uppercase tracking-wider text-emerald-400">
@@ -527,7 +528,7 @@ export default function App() {
       {/* =====================================================================
           5. STACK TECNOLÓGICA
       ===================================================================== */}
-      <section id="stack" className="max-w-6xl mx-auto px-5 sm:px-6 py-16 sm:py-20 border-b border-slate-800/70">
+      <section id="stack" className="scroll-mt-28 md:scroll-mt-20 max-w-6xl mx-auto px-5 sm:px-6 py-16 sm:py-20 border-b border-slate-800/70">
         <div className="mb-10">
           <span className="text-xs font-mono uppercase tracking-wider text-emerald-400">
             03. Competências Técnicas
@@ -572,7 +573,7 @@ export default function App() {
       {/* =====================================================================
           6. TRAJETÓRIA ACADÊMICA E PROFISSIONAL
       ===================================================================== */}
-      <section id="trajetoria" className="max-w-6xl mx-auto px-5 sm:px-6 py-16 sm:py-20 border-b border-slate-800/70">
+      <section id="trajetoria" className="scroll-mt-28 md:scroll-mt-20 max-w-6xl mx-auto px-5 sm:px-6 py-16 sm:py-20 border-b border-slate-800/70">
         <div className="mb-10">
           <span className="text-xs font-mono uppercase tracking-wider text-emerald-400">
             04. Histórico
@@ -630,7 +631,7 @@ export default function App() {
       {/* =====================================================================
           7. CONTATO & RODAPÉ
       ===================================================================== */}
-      <footer id="contato" className="max-w-6xl mx-auto px-5 sm:px-6 py-16">
+      <footer id="contato" className="scroll-mt-28 md:scroll-mt-20 max-w-6xl mx-auto px-5 sm:px-6 py-16">
         <div className="rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950/30 border border-slate-800 p-7 sm:p-10 text-center">
           <span className="text-xs font-mono uppercase tracking-wider text-emerald-400">
             05. Próximo Passo
